@@ -5,9 +5,11 @@ class Coin extends StatelessWidget {
   const Coin({
     super.key,
     required this.coinName,
+    required this.coinPrice,
   });
 
   final String coinName;
+  final double coinPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class Coin extends StatelessWidget {
         style: theme.textTheme.bodyMedium,
       ),
       subtitle: Text(
-        '\$ 40000',
+        '\$ $coinPrice',
         style: theme.textTheme.labelLarge,
       ),
       trailing: const Icon(Icons.arrow_forward_ios),

@@ -24,7 +24,10 @@ class _CoinsListScreenState extends State<CoinsListScreen> {
           : ListView.separated(
               itemCount: _coinsList!.length,
               separatorBuilder: (context, index) => const Divider(),
-              itemBuilder: (ctx, i) => Coin(coinName: _coinsList![i].name),
+              itemBuilder: (ctx, i) => Coin(
+                coinName: _coinsList![i].name,
+                coinPrice: _coinsList![i].priceUSD,
+              ),
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
