@@ -16,25 +16,31 @@ class _CoinsListScreenState extends State<CoinsListScreen> {
   List<CoinModel>? _coinsList;
 
   @override
+  void initState() {
+    _loadCoinsList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Crypto Currencies List')),
       body: _coinsList == null
-          ? const SizedBox()
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.separated(
               itemCount: _coinsList!.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (ctx, i) => Coin(
-                coinName: _coinsList![i].name,
-                coinPrice: _coinsList![i].priceUSD,
+                coin: _coinsList![i],
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          _coinsList = await CoinsRepository().getCoinsList();
-          setState(() {});
-        },
-      ),
     );
+  }
+
+  void _loadCoinsList() async {
+    _coinsList = await CoinsRepository().getCoinsList();
+    setState(() {});
   }
 }
