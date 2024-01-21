@@ -1,7 +1,9 @@
 import 'package:crypto_currencies_app/features/coins_list/widgets/widgets.dart';
+import 'package:crypto_currencies_app/repositories/coins_repository/abstract_coins_repository.dart';
 import 'package:crypto_currencies_app/repositories/coins_repository/coins_repository.dart';
 import 'package:crypto_currencies_app/repositories/coins_repository/model/coin.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class CoinsListScreen extends StatefulWidget {
   const CoinsListScreen({
@@ -40,7 +42,7 @@ class _CoinsListScreenState extends State<CoinsListScreen> {
   }
 
   void _loadCoinsList() async {
-    _coinsList = await CoinsRepository().getCoinsList();
+    _coinsList = await GetIt.I<AbstractCoinsRepository>().getCoinsList();
     setState(() {});
   }
 }
