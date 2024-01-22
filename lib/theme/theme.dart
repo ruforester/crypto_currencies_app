@@ -7,7 +7,7 @@ final darkTheme = ThemeData(
       color: Colors.white,
       fontSize: 20,
     ),
-    centerTitle: true,
+    // centerTitle: true,
     iconTheme: IconThemeData(
       color: Colors.white,
     ),

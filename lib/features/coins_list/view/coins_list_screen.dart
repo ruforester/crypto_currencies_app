@@ -1,7 +1,6 @@
 import 'package:crypto_currencies_app/features/coins_list/bloc/coins_list_bloc.dart';
 import 'package:crypto_currencies_app/features/coins_list/widgets/widgets.dart';
 import 'package:crypto_currencies_app/repositories/coins_repository/abstract_coins_repository.dart';
-import 'package:crypto_currencies_app/repositories/coins_repository/model/coin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -26,8 +25,19 @@ class _CoinsListScreenState extends State<CoinsListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Crypto Currencies List')),
+      appBar: AppBar(
+        title: const Text('Crypto Currencies List'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _coinsListBloc.add(LoadCoinsList());
+              },
+              icon: const Icon(Icons.refresh))
+        ],
+      ),
       body: BlocBuilder<CoinsListBloc, CoinsListState>(
         bloc: _coinsListBloc,
         builder: (context, state) {
@@ -41,8 +51,28 @@ class _CoinsListScreenState extends State<CoinsListScreen> {
             );
           }
           if (state is CoinsListLoadingFailure) {
-            return const Center(
-              child: Text('Error'),
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Something went wrong.',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      _coinsListBloc.add(LoadCoinsList());
+                    },
+                    child: Text(
+                      'Try again',
+                      style: theme.textTheme.labelLarge,
+                    ),
+                  ),
+                ],
+              ),
               // child: Text(state.exception?.toString() ?? 'Error'),
             );
           }
