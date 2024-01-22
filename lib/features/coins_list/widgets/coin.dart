@@ -1,6 +1,5 @@
 import 'package:crypto_currencies_app/repositories/coins_repository/model/coin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Coin extends StatelessWidget {
   const Coin({
